@@ -4,8 +4,10 @@ import requests
 import datetime
 from django.shortcuts import render
 from django.contrib import messages
+from django.conf import settings
 import requests
 import datetime
+
 
 def home(request):
     if 'city' in request.POST:
@@ -14,13 +16,12 @@ def home(request):
         city = 'indore'
 
     # Weather API
-    API_KEY_WEATHER = "your_openweather_api_key"
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid=75ed45f75c07bfc469875cbf02f4a7d7'
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={settings.OPENWEATHER_KEY}'
     PARAMS = {'units': 'metric'}
 
     # Google Custom Search API
-    API_KEY = 'AIzaSyDmP9SljOd-hwUDmdebfFCvvP-JBTh7svA'
-    SEARCH_ENGINE_ID = '72912a3bf004140e6'
+    API_KEY = settings.GOOGLE_API_KEY
+    SEARCH_ENGINE_ID = settings.GOOGLE_SEARCH_ENGINE_ID
     query = city + " 1920x1080"
     city_url = f"https://www.googleapis.com/customsearch/v1?key={API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}&searchType=image&imgSize=large"
 
